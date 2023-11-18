@@ -1,3 +1,5 @@
+using System.Data;
+using System.Diagnostics;
 using Godot;
 using System;
 using static System.MathF;
@@ -30,5 +32,19 @@ public partial class Coin : Area2D
         timePassed += delta;
         var newY = initialPosition.Y + amplitude * Sin((float)(frequency * timePassed));
         Position = new Vector2(Position.X, newY);
+    }
+
+    public void onBodyEntered(Node2D body)
+    {
+        GD.Print("onBodyEntered");
+        if (body.IsInGroup("Player"))
+        {
+            GD.Print("Player");
+            //GameManager.AddScore();
+            //var tween = CreateTween();
+            //tween.TweenProperty(this, "scale", Vector2.Zero);
+            //await tween.Finished;
+            //QueueFree();
+        }
     }
 }

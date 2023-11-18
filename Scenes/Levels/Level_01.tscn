@@ -98,6 +98,7 @@ editor_draw_drag_margin = true
 
 [node name="Coin" parent="Coins" instance=ExtResource("3_rrh80")]
 position = Vector2(576, 406)
+script = ExtResource("5_2jbmi")
 
 [node name="Coin2" parent="Coins" instance=ExtResource("3_rrh80")]
 position = Vector2(712, 353)
@@ -202,3 +203,5 @@ script = ExtResource("5_2jbmi")
 position = Vector2(-15, 117)
 scale = Vector2(6.74, 6.74)
 shape = SubResource("CircleShape2D_bdv08")
+
+[connection signal="body_entered" from="Coins/Coin" to="Coins/Coin" method="onBodyEntered"]
