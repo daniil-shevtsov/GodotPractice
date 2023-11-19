@@ -34,11 +34,12 @@ public partial class Coin : Area2D
 
     public void onBodyEntered(Node2D body)
     {
-        GD.Print("onBodyEntered");
+        GD.Print("Coin onBodyEntered");
         if (body.IsInGroup("Player"))
         {
-            GD.Print("Player");
-            //GameManager.AddScore();
+            GD.Print("Player collided with Coin");
+            var gameManager = GetNode<GameManager>("/root/GameManager");
+            gameManager.CoinCollected();
             var tween = CreateTween();
             tween.TweenProperty(this, new NodePath("scale"), Vector2.Zero, 1.0f);
             tween.TweenCallback(Callable.From(QueueFree));

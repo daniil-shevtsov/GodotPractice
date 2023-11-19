@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://bjb3dx2x4bocm" path="res://Scenes/Levels/Level_02.tscn" id="2_0ac5u"]
 [ext_resource type="PackedScene" uid="uid://w7m6tehvvy3g" path="res://Scenes/Prefabs/player.tscn" id="2_pay8t"]
 [ext_resource type="PackedScene" uid="uid://bfmh3fm2de78o" path="res://Scenes/Prefabs/Coin.tscn" id="3_rrh80"]
-[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="4_vgfkr"]
 [ext_resource type="Script" path="res://Scripts/Coin.cs" id="5_2jbmi"]
 [ext_resource type="Texture2D" uid="uid://jaegp53ccc7w" path="res://Assets/Spritesheet/platformPack_tilesheet.png" id="5_wqbaa"]
 [ext_resource type="Script" path="res://Scripts/GameUI.gd" id="6_66mfc"]
 [ext_resource type="Texture2D" uid="uid://clreg520jah1j" path="res://Assets/platformPack_item008.png" id="7_j7jun"]
 [ext_resource type="FontFile" uid="uid://qgc4vi5osk7v" path="res://Assets/Fonts/Star Choco.ttf" id="8_gwcy2"]
+[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="9_mnlwp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gs0qk"]
 texture = ExtResource("5_wqbaa")
@@ -98,7 +98,6 @@ editor_draw_drag_margin = true
 
 [node name="Coin" parent="Coins" instance=ExtResource("3_rrh80")]
 position = Vector2(576, 406)
-script = ExtResource("5_2jbmi")
 
 [node name="Coin2" parent="Coins" instance=ExtResource("3_rrh80")]
 position = Vector2(712, 353)
@@ -152,7 +151,7 @@ Set the next scene
 from \"LevelFinishDoor\" Area"
 
 [node name="GameManager" type="Node2D" parent="."]
-script = ExtResource("4_vgfkr")
+script = ExtResource("9_mnlwp")
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 
@@ -205,3 +204,5 @@ scale = Vector2(6.74, 6.74)
 shape = SubResource("CircleShape2D_bdv08")
 
 [connection signal="body_entered" from="Coins/Coin" to="Coins/Coin" method="onBodyEntered"]
+[connection signal="body_entered" from="Coins/Coin2" to="Coins/Coin2" method="onBodyEntered"]
+[connection signal="body_entered" from="Coins/Coin3" to="Coins/Coin3" method="onBodyEntered"]
