@@ -1,5 +1,3 @@
-using System.Data;
-using System.Diagnostics;
 using Godot;
 using System;
 using static System.MathF;
@@ -41,10 +39,9 @@ public partial class Coin : Area2D
         {
             GD.Print("Player");
             //GameManager.AddScore();
-            //var tween = CreateTween();
-            //tween.TweenProperty(this, "scale", Vector2.Zero);
-            //await tween.Finished;
-            //QueueFree();
+            var tween = CreateTween();
+            tween.TweenProperty(this, new NodePath("scale"), Vector2.Zero, 1.0f);
+            tween.TweenCallback(Callable.From(QueueFree));
         }
     }
 }
