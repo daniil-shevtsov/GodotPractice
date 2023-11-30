@@ -132,12 +132,33 @@ public partial class Player : CharacterBody2D
     private async void DeathTween()
     {
         var tween = CreateTween();
-        tween.TweenProperty(this, new NodePath("scale"), Vector2.Zero, 1f);
+        tween.TweenProperty(this, new NodePath("scale"), Vector2.Zero, 0.15f);
+        GD.Print("Before await");
         await ToSignal(tween, Tween.SignalName.Finished);
+        GD.Print(
+            $"New spawn position: {spawnPoint.GlobalPosition.X} {spawnPoint.GlobalPosition.Y}"
+        );
         GlobalPosition = spawnPoint.GlobalPosition;
+        await ToSignal(GetTree().CreateTimer(0.3f), SceneTreeTimer.SignalName.Timeout);
+        //AudioManager.respawnSfx.Play();
+        RespawnTween();
     }
 
-    private void RespawnTween() { }
+    private async void RespawnTween()
+    {
+        var tween = CreateTween();
+        tween.Stop();
+        tween.Play();
+        tween.TweenProperty(this, new NodePath("scale"), new Vector2(1f, 1f), 0.15f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+    }
 
-    private void JumpTween() { }
+    private async void JumpTween()
+    {
+        var tween = CreateTween();
+        tween.TweenProperty(this, new NodePath("scale"), new Vector2(0.7f, 1.4f), 0.1f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        tween.TweenProperty(this, new NodePath("scale"), new Vector2(1.0f, 1.0f), 0.1f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+    }
 }
