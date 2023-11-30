@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Player : Node
+public partial class Player : CharacterBody2D
 {
     [ExportCategory("Player Properties")]
     [Export]
@@ -37,7 +37,12 @@ public partial class Player : Node
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta) { }
+    public override void _Process(double delta)
+    {
+        Movement();
+        PlayerAnimations();
+        FlipPlayer();
+    }
 
     public void onBodyEntered(Node2D body)
     {
@@ -48,11 +53,43 @@ public partial class Player : Node
         }
     }
 
-    private void Movement() { }
+    private void Movement()
+    {
+        if (!IsOnFloor())
+        {
+            Velocity = new Vector2(Velocity.X, Velocity.Y + gravity);
+        }
+        else if (IsOnFloor())
+        {
+            GD.Print("Player on the floor");
+            jumpCount = maxJumpCount;
+        }
 
-    private void HandleJumping() { }
+        HandleJumping();
+        MoveAndSlide();
+    }
 
-    private void Jump() { }
+    private void HandleJumping()
+    {
+        if (Input.IsActionJustPressed("Jump"))
+        {
+            GD.Print("Player jump pressed");
+            if (IsOnFloor() && !doubleJump)
+            {
+                Jump();
+            }
+            else if (doubleJump && jumpCount > 0)
+            {
+                Jump();
+                jumpCount -= 1;
+            }
+        }
+    }
+
+    private void Jump()
+    {
+        GD.Print("Player Jump");
+    }
 
     private void PlayerAnimations() { }
 
