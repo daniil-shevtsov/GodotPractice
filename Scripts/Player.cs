@@ -61,11 +61,13 @@ public partial class Player : CharacterBody2D
         }
         else if (IsOnFloor())
         {
-            GD.Print("Player on the floor");
             jumpCount = maxJumpCount;
         }
 
         HandleJumping();
+
+        var inputAxis = Input.GetAxis("Left", "Right");
+        Velocity = new Vector2(inputAxis * moveSpeed, Velocity.Y);
         MoveAndSlide();
     }
 
