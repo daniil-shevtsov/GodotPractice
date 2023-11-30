@@ -38,4 +38,29 @@ public partial class Player : Node
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) { }
+
+    public void onBodyEntered(Node2D body)
+    {
+        GD.Print("Player onBodyEntered");
+        if (body.IsInGroup("Traps"))
+        {
+            GD.Print("Player collided with Trap");
+        }
+    }
+
+    private void Movement() { }
+
+    private void HandleJumping() { }
+
+    private void Jump() { }
+
+    private void PlayerAnimations() { }
+
+    private void FlipPlayer() { }
+
+    private void DeathTween() { }
+
+    private void RespawnTween() { }
+
+    private void JumpTween() { }
 }
