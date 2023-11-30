@@ -33,7 +33,6 @@ public partial class Player : CharacterBody2D
     public override void _Ready()
     {
         playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        playerSprite.Play("Walk", 1.5f);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -90,10 +89,30 @@ public partial class Player : CharacterBody2D
 
     private void Jump()
     {
-        GD.Print("Player Jump");
+        JumpTween();
+        //AudioManager.JumpSfx.Play();
+        Velocity = new Vector2(Velocity.X, Velocity.Y - jumpForce);
     }
 
-    private void PlayerAnimations() { }
+    private void PlayerAnimations()
+    {
+        if (IsOnFloor())
+        {
+            if (Mathf.Abs(Velocity.X) > 0)
+            {
+                //particleTraits.emitting = true;
+                playerSprite.Play("Walk", 1.5f);
+            }
+            else
+            {
+                playerSprite.Play("Idle");
+            }
+        }
+        else
+        {
+            playerSprite.Play("Jump");
+        }
+    }
 
     private void FlipPlayer() { }
 
