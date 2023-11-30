@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://w7m6tehvvy3g" path="res://Scenes/Prefabs/player.tscn" id="2_pay8t"]
 [ext_resource type="PackedScene" uid="uid://bfmh3fm2de78o" path="res://Scenes/Prefabs/Coin.tscn" id="3_rrh80"]
 [ext_resource type="Script" path="res://Scripts/Coin.cs" id="5_2jbmi"]
-[ext_resource type="Script" path="res://Scripts/Player.cs" id="5_wa3rc"]
 [ext_resource type="Texture2D" uid="uid://jaegp53ccc7w" path="res://Assets/Spritesheet/platformPack_tilesheet.png" id="5_wqbaa"]
 [ext_resource type="Script" path="res://Scripts/GameUI.gd" id="6_66mfc"]
 [ext_resource type="Texture2D" uid="uid://clreg520jah1j" path="res://Assets/platformPack_item008.png" id="7_j7jun"]
 [ext_resource type="FontFile" uid="uid://qgc4vi5osk7v" path="res://Assets/Fonts/Star Choco.ttf" id="8_gwcy2"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="9_mnlwp"]
+[ext_resource type="PackedScene" uid="uid://ceeodc2j558ty" path="res://Scenes/Prefabs/player2.tscn" id="13_4rqpr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gs0qk"]
 texture = ExtResource("5_wqbaa")
@@ -94,15 +94,6 @@ drag_right_margin = 0.4
 drag_bottom_margin = 0.4
 editor_draw_limits = true
 editor_draw_drag_margin = true
-
-[node name="Player2" parent="." instance=ExtResource("2_pay8t")]
-z_index = 1
-position = Vector2(120, 300.96)
-script = ExtResource("5_wa3rc")
-moveSpeed = 400.0
-jumpForce = 1600.0
-maxJumpCount = 2
-doubleJump = false
 
 [node name="Coins" type="Node2D" parent="."]
 
@@ -212,6 +203,9 @@ script = ExtResource("5_2jbmi")
 position = Vector2(-15, 117)
 scale = Vector2(6.74, 6.74)
 shape = SubResource("CircleShape2D_bdv08")
+
+[node name="Player3" parent="." instance=ExtResource("13_4rqpr")]
+position = Vector2(59, 184)
 
 [connection signal="body_entered" from="Coins/Coin" to="Coins/Coin" method="onBodyEntered"]
 [connection signal="body_entered" from="Coins/Coin2" to="Coins/Coin2" method="onBodyEntered"]

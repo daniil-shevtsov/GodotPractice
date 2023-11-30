@@ -25,7 +25,8 @@ public partial class Player : CharacterBody2D
 
     AnimatedSprite2D playerSprite = null;
 
-    // SpawnPoint spawnPoint = null;
+    Node2D spawnPoint = null;
+
     // ParticleTraits particleTraits = null;
     // DeathParticles deathParticles = null;
 
@@ -33,6 +34,7 @@ public partial class Player : CharacterBody2D
     public override void _Ready()
     {
         playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        spawnPoint = GetNode<Node2D>("SpawnPoint");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,6 +51,7 @@ public partial class Player : CharacterBody2D
         if (body.IsInGroup("Traps"))
         {
             GD.Print("Player collided with Trap");
+            DeathTween();
         }
     }
 
@@ -114,9 +117,25 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    private void FlipPlayer() { }
+    private void FlipPlayer()
+    {
+        if (Velocity.X < 0)
+        {
+            playerSprite.FlipH = true;
+        }
+        else if (Velocity.Y > 0)
+        {
+            playerSprite.FlipH = false;
+        }
+    }
 
-    private void DeathTween() { }
+    private async void DeathTween()
+    {
+        var tween = CreateTween();
+        tween.TweenProperty(this, new NodePath("scale"), Vector2.Zero, 1f);
+        await ToSignal(tween, Tween.SignalName.Finished);
+        GlobalPosition = spawnPoint.GlobalPosition;
+    }
 
     private void RespawnTween() { }
 
