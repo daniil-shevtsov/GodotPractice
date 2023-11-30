@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cjanwm3sy2x37"]
+[gd_scene load_steps=18 format=3 uid="uid://cjanwm3sy2x37"]
 
 [ext_resource type="Script" path="res://Scripts/new_script.cs" id="1_bgl2v"]
 [ext_resource type="PackedScene" uid="uid://cyti38f0lagf2" path="res://Scenes/Prefabs/LevelFinishDoor.tscn" id="1_oqkjg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://w7m6tehvvy3g" path="res://Scenes/Prefabs/player.tscn" id="2_pay8t"]
 [ext_resource type="PackedScene" uid="uid://bfmh3fm2de78o" path="res://Scenes/Prefabs/Coin.tscn" id="3_rrh80"]
 [ext_resource type="Script" path="res://Scripts/Coin.cs" id="5_2jbmi"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="5_wa3rc"]
 [ext_resource type="Texture2D" uid="uid://jaegp53ccc7w" path="res://Assets/Spritesheet/platformPack_tilesheet.png" id="5_wqbaa"]
 [ext_resource type="Script" path="res://Scripts/GameUI.gd" id="6_66mfc"]
 [ext_resource type="Texture2D" uid="uid://clreg520jah1j" path="res://Assets/platformPack_item008.png" id="7_j7jun"]
@@ -93,6 +94,15 @@ drag_right_margin = 0.4
 drag_bottom_margin = 0.4
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="Player2" parent="." instance=ExtResource("2_pay8t")]
+z_index = 1
+position = Vector2(300, 636)
+script = ExtResource("5_wa3rc")
+moveSpeed = 400.0
+jumpForce = 1600.0
+maxJumpCount = 2
+doubleJump = false
 
 [node name="Coins" type="Node2D" parent="."]
 
