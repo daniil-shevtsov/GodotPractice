@@ -30,7 +30,11 @@ public partial class Player : Node
     // DeathParticles deathParticles = null;
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready() { }
+    public override void _Ready()
+    {
+        playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        playerSprite.Play("Walk", 1.5f);
+    }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) { }
