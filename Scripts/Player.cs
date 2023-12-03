@@ -34,7 +34,7 @@ public partial class Player : CharacterBody2D
     public override void _Ready()
     {
         playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        spawnPoint = GetNode<Node2D>("SpawnPoint");
+        spawnPoint = GetNode<Node2D>("%SpawnPoint");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
