@@ -47,10 +47,8 @@ public partial class Player : CharacterBody2D
 
     public void onBodyEntered(Node2D body)
     {
-        GD.Print("Player onBodyEntered");
         if (body.IsInGroup("Traps"))
         {
-            GD.Print("Player collided with Trap");
             DeathTween();
         }
     }
@@ -77,7 +75,6 @@ public partial class Player : CharacterBody2D
     {
         if (Input.IsActionJustPressed("Jump"))
         {
-            GD.Print("Player jump pressed");
             if (IsOnFloor() && !doubleJump)
             {
                 Jump();
@@ -133,11 +130,7 @@ public partial class Player : CharacterBody2D
     {
         var tween = CreateTween();
         tween.TweenProperty(this, new NodePath("scale"), Vector2.Zero, 0.15f);
-        GD.Print("Before await");
         await ToSignal(tween, Tween.SignalName.Finished);
-        GD.Print(
-            $"New spawn position: {spawnPoint.GlobalPosition.X} {spawnPoint.GlobalPosition.Y}"
-        );
         GlobalPosition = spawnPoint.GlobalPosition;
         await ToSignal(GetTree().CreateTimer(0.3f), SceneTreeTimer.SignalName.Timeout);
         //AudioManager.respawnSfx.Play();
@@ -158,7 +151,12 @@ public partial class Player : CharacterBody2D
         var tween = CreateTween();
         tween.TweenProperty(this, new NodePath("scale"), new Vector2(0.7f, 1.4f), 0.1f);
         await ToSignal(tween, Tween.SignalName.Finished);
-        tween.TweenProperty(this, new NodePath("scale"), new Vector2(1.0f, 1.0f), 0.1f);
-        await ToSignal(tween, Tween.SignalName.Finished);
+        /*
+        TODO: For some reason in original GDScript there is only one tween used for both tween directions
+              buy
+        */
+        var tween2 = CreateTween();
+        tween2.TweenProperty(this, new NodePath("scale"), new Vector2(1.0f, 1.0f), 0.1f);
+        await ToSignal(tween2, Tween.SignalName.Finished);
     }
 }
