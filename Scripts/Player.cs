@@ -27,14 +27,16 @@ public partial class Player : CharacterBody2D
 
     Node2D spawnPoint = null;
 
-    // ParticleTraits particleTraits = null;
-    // DeathParticles deathParticles = null;
+    CpuParticles2D particleTraits = null;
+    CpuParticles2D deathParticles = null;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         spawnPoint = GetNode<Node2D>("%SpawnPoint");
+        particleTraits = GetNode<CpuParticles2D>("ParticleTrails");
+        deathParticles = GetNode<CpuParticles2D>("DeathParticles");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,6 +51,7 @@ public partial class Player : CharacterBody2D
     {
         if (body.IsInGroup("Traps"))
         {
+            deathParticles.Emitting = true;
             DeathTween();
         }
     }
@@ -100,7 +103,7 @@ public partial class Player : CharacterBody2D
         {
             if (Mathf.Abs(Velocity.X) > 0)
             {
-                //particleTraits.emitting = true;
+                particleTraits.Emitting = true;
                 playerSprite.Play("Walk", 1.5f);
             }
             else
@@ -120,7 +123,7 @@ public partial class Player : CharacterBody2D
         {
             playerSprite.FlipH = true;
         }
-        else if (Velocity.Y > 0)
+        else if (Velocity.X > 0)
         {
             playerSprite.FlipH = false;
         }
@@ -153,7 +156,7 @@ public partial class Player : CharacterBody2D
         await ToSignal(tween, Tween.SignalName.Finished);
         /*
         TODO: For some reason in original GDScript there is only one tween used for both tween directions
-              buy
+              but in C# it only works if I use different tweens
         */
         var tween2 = CreateTween();
         tween2.TweenProperty(this, new NodePath("scale"), new Vector2(1.0f, 1.0f), 0.1f);
