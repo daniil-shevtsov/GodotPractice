@@ -1,6 +1,5 @@
 [gd_scene load_steps=18 format=3 uid="uid://cjanwm3sy2x37"]
 
-[ext_resource type="Script" path="res://Scripts/new_script.cs" id="1_bgl2v"]
 [ext_resource type="PackedScene" uid="uid://cyti38f0lagf2" path="res://Scenes/Prefabs/LevelFinishDoor.tscn" id="1_oqkjg"]
 [ext_resource type="PackedScene" uid="uid://bjb3dx2x4bocm" path="res://Scenes/Levels/Level_02.tscn" id="2_0ac5u"]
 [ext_resource type="PackedScene" uid="uid://w7m6tehvvy3g" path="res://Scenes/Prefabs/player.tscn" id="2_pay8t"]
@@ -12,6 +11,20 @@
 [ext_resource type="FontFile" uid="uid://qgc4vi5osk7v" path="res://Assets/Fonts/Star Choco.ttf" id="8_gwcy2"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="9_mnlwp"]
 [ext_resource type="PackedScene" uid="uid://ceeodc2j558ty" path="res://Scenes/Prefabs/player2.tscn" id="13_4rqpr"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_q7b6b"]
+script/source = "using Godot;
+using System;
+
+public partial class new_script : Node
+{
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready() { }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta) { }
+}
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gs0qk"]
 texture = ExtResource("5_wqbaa")
@@ -69,7 +82,7 @@ sources/0 = SubResource("TileSetAtlasSource_rndpx")
 [sub_resource type="CircleShape2D" id="CircleShape2D_bdv08"]
 
 [node name="Level_01" type="Node2D"]
-script = ExtResource("1_bgl2v")
+script = SubResource("CSharpScript_q7b6b")
 
 [node name="LevelFinishDoor" parent="." instance=ExtResource("1_oqkjg")]
 z_index = 1
